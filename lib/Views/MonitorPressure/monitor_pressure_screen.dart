@@ -104,6 +104,7 @@ class _MonitorPressureScreenState extends State<MonitorPressureScreen> {
                               _buildCell(monitorPressure.updateTime!, textAlign: TextAlign.start),
                               _buildCell(monitorPressure.pressure!, textAlign: TextAlign.center),
                               _buildCell(monitorPressure.waterFlow!, textAlign: TextAlign.center),
+                              _buildCell(monitorPressure.dailyOutput!, textAlign: TextAlign.center),
                               _buildCell(monitorPressure.total!, textAlign: TextAlign.center),
                             ],
                           ),
@@ -179,6 +180,17 @@ class _MonitorPressureScreenState extends State<MonitorPressureScreen> {
               ),
             ),
           ),
+          TableCell(
+            child: Shimmer.fromColors(
+              baseColor: Colors.grey[200]!,
+              highlightColor: Colors.grey[100]!,
+              child: Container(
+                height: 40,
+                margin: const EdgeInsets.fromLTRB(3, 3, 0, 0),
+                color: Colors.white,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -191,6 +203,7 @@ List<Widget> _buildColumns() {
     _buildCell('Thời gian', textAlign: TextAlign.start, fontWeight: FontWeight.bold),
     _buildCell('P(bar)', textAlign: TextAlign.center, fontWeight: FontWeight.bold),
     _buildCell('Q(m3/h)', textAlign: TextAlign.center, fontWeight: FontWeight.bold),
+    _buildCell('Qn(m3)', textAlign: TextAlign.center, fontWeight: FontWeight.bold),
     _buildCell('∑Q(m3)', textAlign: TextAlign.center, fontWeight: FontWeight.bold),
   ];
 }

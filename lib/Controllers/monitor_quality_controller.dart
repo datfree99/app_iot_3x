@@ -27,7 +27,7 @@ class MonitorQualityController with ChangeNotifier {
   List<MonitorQualityModel> get monitorQualities => _monitorQualities;
 
   void loopGetData(Function() fetchDataCallback) async {
-    _timer = Timer.periodic(const Duration(seconds: 20), (timer) async {
+    _timer = Timer.periodic(const Duration(minutes: 5), (timer) async {
 
       await fetchDataCallback();
     });
@@ -74,7 +74,7 @@ class MonitorQualityController with ChangeNotifier {
 
       Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization' : 'Bearer $globalToken' };
       String params = "?date=$date";
-    print(GenerateApi.getPath('monitorQualityDetail', params));
+
       final response = await http.get(GenerateApi.getPath('monitorQualityDetail', params), headers: headers).timeout(const Duration(seconds: 30));
 
       if(response.statusCode != 200) {

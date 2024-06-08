@@ -23,7 +23,7 @@ class MonthlyOutputController with ChangeNotifier {
   List<MonthlyOutputModel> get monthlyOutputs => _monthlyOutputs;
 
   void loopGetData(Function() fetchDataCallback) async {
-    _timer = Timer.periodic(const Duration(seconds: 20), (timer) async {
+    _timer = Timer.periodic(const Duration(minutes: 5), (timer) async {
 
       await fetchDataCallback();
     });
@@ -39,7 +39,7 @@ class MonthlyOutputController with ChangeNotifier {
 
       Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization' : 'Bearer $globalToken' };
       String params = "?measuring_point=$id&month=$month";
-      print(GenerateApi.getPath('outputChart', params));
+
       final response = await http.get(GenerateApi.getPath('outputChart', params), headers: headers).timeout(const Duration(seconds: 10));
 
       if(response.statusCode != 200) {
@@ -59,11 +59,10 @@ class MonthlyOutputController with ChangeNotifier {
         _errorMessage = "Không có dữ liệu";
       }
     }catch (e) {
-      print(e);
       _errorMessage = "Không có dữ liệu";
       _timer?.cancel();
     }
-    print(_monthlyOutputs);
+
     notifyListeners();
   }
 

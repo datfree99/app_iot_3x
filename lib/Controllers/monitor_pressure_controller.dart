@@ -27,14 +27,13 @@ class MonitorPressureController with ChangeNotifier {
     List<MonitorPressureModel> get monitorPressures => _monitorPressures;
 
     void loopGetData(Function() fetchDataCallback) async {
-        _timer = Timer.periodic(const Duration(seconds: 20), (timer) async {
+        _timer = Timer.periodic(const Duration(minutes: 5), (timer) async {
 
             await fetchDataCallback();
         });
     }
 
     Future<void> getMonitorPressures() async{
-        print("xxxxxxxxxxxxxxxxxxx");
         try {
             Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization' : 'Bearer $globalToken' };
             final response = await http.get(GenerateApi.getPath('pressure'), headers: headers).timeout(const Duration(seconds: 10));
@@ -71,7 +70,7 @@ class MonitorPressureController with ChangeNotifier {
             Map<String, String> headers = {'Content-Type': 'application/json', 'Authorization' : 'Bearer $globalToken' };
 
             String params = "?measuring_point=$id&date=$date";
-            print(params);
+
             final response = await http.get(GenerateApi.getPath('pressureDetail', params), headers: headers).timeout(const Duration(seconds: 30));
 
             if(response.statusCode != 200) {

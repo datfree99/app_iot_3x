@@ -222,23 +222,13 @@ class _MonthlyOutputChartState extends State<MonthlyOutputChart> {
                           tooltipMargin: -5,
                           getTooltipItem: (group, groupIndex, rod, rodIndex) {
                             return BarTooltipItem(
-                              "${group.x.toString()} \n",
+                              (rod.toY).toString(),
                               textAlign: TextAlign.left,
                               const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
                               ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: "Sản lượng (m3): ${(rod.toY).toString()}",
-                                  style: const TextStyle(
-                                    color: Colors.white, //widget.touchedBarColor,
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
                             );
                           }),
                       touchCallback: (FlTouchEvent event, barTouchResponse) {

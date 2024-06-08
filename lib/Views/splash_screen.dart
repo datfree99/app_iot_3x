@@ -4,16 +4,29 @@ import '../Configs/constant.dart';
 import '../Configs/router.dart';
 
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
 
-  final AuthController authController = AuthController();
 
   SplashScreen({super.key});
 
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  final AuthController authController = AuthController();
+
+  @override
+  void initState() {
+
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _checkLoginStatus(context);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    _checkLoginStatus(context);
 
     return Container(
       color: Colors.white,
@@ -29,7 +42,7 @@ class SplashScreen extends StatelessWidget {
   void _checkLoginStatus(BuildContext context) async {
 
     bool checkToken = await authController.checkToken();
-    print(checkToken);
+
     if (!context.mounted) return;
     if (checkToken) {
       await authController.getMeasuringPoint();
@@ -40,7 +53,6 @@ class SplashScreen extends StatelessWidget {
       Navigator.pushNamedAndRemoveUntil(context, RouteApp.login, (route) => false);
     }
   }
-
 }
 
 
